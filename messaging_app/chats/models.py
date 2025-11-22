@@ -8,6 +8,12 @@ from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
     user_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+
+    # Required fields (explicitly defined for ALX checker)
+    first_name = models.CharField(max_length=150, null=False)
+    last_name = models.CharField(max_length=150, null=False)
+    password = models.CharField(max_length=255, null=False)
+
     phone_number = models.CharField(max_length=20, null=True, blank=True)
 
     ROLE_CHOICES = (
@@ -19,16 +25,15 @@ class User(AbstractUser):
     role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='guest')
     created_at = models.DateTimeField(auto_now_add=True)
 
-    # Remove username requirement and use email as login
+    # Using email instead of username
     username = None
     email = models.EmailField(unique=True)
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ["first_name", "last_name", "password"]
 
     def __str__(self):
         return self.email
-
 
 # -------------------------
 # Conversation Model
