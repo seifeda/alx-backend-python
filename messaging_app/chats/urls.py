@@ -1,9 +1,9 @@
-from rest_framework.routers import DefaultRouter
+from rest_framework.routers import router
 from django.urls import path, include
 from .views import ConversationViewSet, MessageViewSet
 
 # Use DefaultRouter
-router = DefaultRouter()
+router = router.DefaultRouter()
 router.register(r"conversations", ConversationViewSet)
 router.register(r"messages", MessageViewSet)
 
